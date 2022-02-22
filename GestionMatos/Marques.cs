@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GestionMatos
 {
-    public partial class Clients : Form
+    public partial class Marques : Form
     {
-        public Clients()
+        public Marques()
         {
             InitializeComponent();
         }

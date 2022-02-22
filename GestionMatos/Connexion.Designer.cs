@@ -1,7 +1,7 @@
 ﻿
 namespace GestionMatos
 {
-    partial class Form1
+    partial class Connexion
     {
         /// <summary>
         /// Variable nécessaire au concepteur.

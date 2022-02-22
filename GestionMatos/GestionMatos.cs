@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace GestionMatos
 {
-    public partial class GestionMatoscs : Form
+    public partial class GestionMatos : Form
     {
-        Clients clients = new Clients();
+        ClientsOld clients = new ClientsOld();
         Intervention intervention = new Intervention();
         Materiels materiels = new Materiels();
-        public GestionMatoscs()
+        public GestionMatos()
         {
             InitializeComponent();
         }
@@ -27,7 +27,7 @@ namespace GestionMatos
         {
             intervention.Dispose();
             materiels.Dispose();
-            clients = new Clients();
+            clients = new ClientsOld();
             clients.MdiParent = this;
             clients.Dock = DockStyle.Fill;
             clients.Show();

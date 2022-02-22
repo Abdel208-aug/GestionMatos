@@ -1,7 +1,7 @@
 ﻿
 namespace GestionMatos
 {
-    partial class GestionMatoscs
+    partial class GestionMatos
     {
         /// <summary>
         /// Required designer variable.
