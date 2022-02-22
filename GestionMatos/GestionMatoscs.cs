@@ -12,27 +12,44 @@ namespace GestionMatos
 {
     public partial class GestionMatoscs : Form
     {
+        Clients clients = new Clients();
+        Intervention intervention = new Intervention();
+        Materiels materiels = new Materiels();
         public GestionMatoscs()
         {
             InitializeComponent();
         }
-        Form form = new Form();
-        private void gestionClientsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void GestionMatoscs_Load(object sender, EventArgs e)
         {
-            
-            Clients clients = new Clients();
+
+        }
+        private void gestionClientsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            intervention.Dispose();
+            materiels.Dispose();
+            clients = new Clients();
             clients.MdiParent = this;
             clients.Dock = DockStyle.Fill;
             clients.Show();
         }
-
-        private void gestionInterventionsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void gestionInterventionsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            
-            Intervention intervention = new Intervention();
+            clients.Dispose();
+            materiels.Dispose();
+            intervention = new Intervention();
             intervention.MdiParent = this;
             intervention.Dock = DockStyle.Fill;
             intervention.Show();
+        }
+
+        private void gestionMatérielToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clients.Dispose();
+            intervention.Dispose();
+            materiels= new Materiels();
+            materiels.MdiParent = this;
+            materiels.Dock = DockStyle.Fill;
+            materiels.Show();
         }
     }
 }

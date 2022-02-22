@@ -17,36 +17,28 @@ namespace GestionMatos
         {
             InitializeComponent();
         }
+        DataTable InterTable = new DataTable();
+        BindingSource InterBind = new BindingSource();
+        SqlCommand sqlCommand = new SqlCommand();
         SqlConn Sql = new SqlConn();
 
-        void FillListboxe()
+        void FillGrid()
         {
             listIntr.Items.Clear();
             comboMateriel.Items.Clear();
             Sql.Connect();
-            string drop = "select idMat,nomMat from Materiel";
-            SqlCommand command = new SqlCommand(drop, Sql.Conn);
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                comboMateriel.Items.Add(reader["nomMat"].ToString());
-            }
-
-            reader.Close();
-
-            string query = "select * from Intervention";
-            command.CommandText = query;
-            reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                listIntr.Items.Add(reader["datePlanifie"].ToString());
-            }
+            string drop = "select * from Intervention;";
+            sqlCommand.CommandText = drop;
+            sqlCommand.Connection = Sql.Conn;
+            InterTable.Load(sqlCommand.ExecuteReader());
+            InterBind.DataSource = InterTable;
+            dataGridView1.DataSource = InterBind;
 
             Sql.disconnect();
         }
         private void Intervention_Load(object sender, EventArgs e)
         {
-            FillListboxe();
+            FillGrid();
         }
 
         private void listIntr_SelectedIndexChanged(object sender, EventArgs e)
@@ -63,6 +55,11 @@ namespace GestionMatos
             }
 
             Sql.disconnect();
+        }
+
+        private void btnAjt_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

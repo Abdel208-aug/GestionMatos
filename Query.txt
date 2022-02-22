@@ -1,0 +1,48 @@
+            string queryC = "select * from typeMateriel";
+            command.CommandText = queryC;
+            command.Connection = sql.Conn;
+            adapter.SelectCommand = command;
+            dtc.Dispose();
+            adapter.Fill(dtc);
+            //dtc.Load(command.ExecuteReader());
+            //remplir Combobox de type materiel
+            comboType.ValueMember = "idType";
+            comboType.DisplayMember = "nomType";
+            comboType.DataSource = dtc;
+
+            dtc.Dispose();
+
+            queryC = "select * from Marque";
+            command.CommandText = queryC;
+            command.Connection = sql.Conn;
+            adapter.SelectCommand = command;
+            adapter.Fill(dtc);
+            //dtc.Load(command.ExecuteReader());
+            //remplir Combobox de type Marque
+            comboMarque.ValueMember = "idMrq";
+            comboMarque.DisplayMember = "nomMrq";
+            comboMarque.DataSource = dtc;
+
+            dtc.Clear();
+
+            queryC = "select * from Client";
+            command.CommandText = queryC;
+            command.Connection = sql.Conn;
+            dtc.Load(command.ExecuteReader());
+            //remplir Combobox de type Client
+            comboClient.ValueMember = "idClient";
+            comboClient.DisplayMember = "nomClient";
+            comboClient.DataSource = dtc;
+
+            dtc.Clear();
+
+            queryC = "select * from [dbo].[Site]";
+            command.CommandText = queryC;
+            command.Connection = sql.Conn;
+            dtc.Load(command.ExecuteReader());
+            //remplir Combobox de type Site
+            comboSite.ValueMember = "idSite";
+            comboSite.DisplayMember = "nomSite";
+            comboSite.DataSource = dtc;
+
+            dtc.Clear();
