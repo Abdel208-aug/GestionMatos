@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GMatosDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="idClient" />
+          </Key>
+          <Property Name="idClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomClient" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mailClient" Type="varchar" MaxLength="50" />
+          <Property Name="telClient" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Intervention">
+          <Key>
+            <PropertyRef Name="idInter" />
+          </Key>
+          <Property Name="idInter" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="datePlanifie" Type="date" Nullable="false" />
+          <Property Name="Commentaire" Type="varchar" MaxLength="50" />
+          <Property Name="#idMat" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Marque">
+          <Key>
+            <PropertyRef Name="idMrq" />
+          </Key>
+          <Property Name="idMrq" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomMrq" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materiel">
+          <Key>
+            <PropertyRef Name="idMat" />
+          </Key>
+          <Property Name="idMat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomMat" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nSerieMat" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MTBFMat" Type="int" />
+          <Property Name="Date_Installation" Type="datetime" />
+          <Property Name="#ID_TypeMat" Type="int" Nullable="false" />
+          <Property Name="#ID_Site" Type="int" Nullable="false" />
+          <Property Name="#ID_Client" Type="int" Nullable="false" />
+          <Property Name="#ID_Marque" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="idSite" />
+          </Key>
+          <Property Name="idSite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomSite" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="departementSite" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CPSite" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="adresseSite" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="typeMateriel">
+          <Key>
+            <PropertyRef Name="idType" />
+          </Key>
+          <Property Name="idType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="loginUser" Type="varchar" MaxLength="60" />
+          <Property Name="passwordUser" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <Association Name="idClient">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="idClient" />
+            </Principal>
+            <Dependent Role="Materiel">
+              <PropertyRef Name="#ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idMarque">
+          <End Role="Marque" Type="Self.Marque" Multiplicity="1" />
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marque">
+              <PropertyRef Name="idMrq" />
+            </Principal>
+            <Dependent Role="Materiel">
+              <PropertyRef Name="#ID_Marque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idMateriel">
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="1" />
+          <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materiel">
+              <PropertyRef Name="idMat" />
+            </Principal>
+            <Dependent Role="Intervention">
+              <PropertyRef Name="#idMat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idSite">
+          <End Role="Site" Type="Self.Site" Multiplicity="1" />
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="idSite" />
+            </Principal>
+            <Dependent Role="Materiel">
+              <PropertyRef Name="#ID_Site" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idType">
+          <End Role="typeMateriel" Type="Self.typeMateriel" Multiplicity="1" />
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeMateriel">
+              <PropertyRef Name="idType" />
+            </Principal>
+            <Dependent Role="Materiel">
+              <PropertyRef Name="#ID_TypeMat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GMatosDBModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Intervention" EntityType="Self.Intervention" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marque" EntityType="Self.Marque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materiel" EntityType="Self.Materiel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Site" EntityType="Self.Site" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="typeMateriel" EntityType="Self.typeMateriel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="idClient" Association="Self.idClient">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Materiel" EntitySet="Materiel" />
+          </AssociationSet>
+          <AssociationSet Name="idMarque" Association="Self.idMarque">
+            <End Role="Marque" EntitySet="Marque" />
+            <End Role="Materiel" EntitySet="Materiel" />
+          </AssociationSet>
+          <AssociationSet Name="idMateriel" Association="Self.idMateriel">
+            <End Role="Materiel" EntitySet="Materiel" />
+            <End Role="Intervention" EntitySet="Intervention" />
+          </AssociationSet>
+          <AssociationSet Name="idSite" Association="Self.idSite">
+            <End Role="Site" EntitySet="Site" />
+            <End Role="Materiel" EntitySet="Materiel" />
+          </AssociationSet>
+          <AssociationSet Name="idType" Association="Self.idType">
+            <End Role="typeMateriel" EntitySet="typeMateriel" />
+            <End Role="Materiel" EntitySet="Materiel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GMatosDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="idClient" />
+          </Key>
+          <Property Name="idClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mailClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telClient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Materiels" Relationship="Self.idClient" FromRole="Client" ToRole="Materiel" />
+        </EntityType>
+        <EntityType Name="Intervention">
+          <Key>
+            <PropertyRef Name="idInter" />
+          </Key>
+          <Property Name="idInter" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datePlanifie" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Commentaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="C_idMat" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Materiel" Relationship="Self.idMateriel" FromRole="Intervention" ToRole="Materiel" />
+        </EntityType>
+        <EntityType Name="Marque">
+          <Key>
+            <PropertyRef Name="idMrq" />
+          </Key>
+          <Property Name="idMrq" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomMrq" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Materiels" Relationship="Self.idMarque" FromRole="Marque" ToRole="Materiel" />
+        </EntityType>
+        <EntityType Name="Materiel">
+          <Key>
+            <PropertyRef Name="idMat" />
+          </Key>
+          <Property Name="idMat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomMat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nSerieMat" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MTBFMat" Type="Int32" />
+          <Property Name="Date_Installation" Type="DateTime" Precision="3" />
+          <Property Name="C_ID_TypeMat" Type="Int32" Nullable="false" />
+          <Property Name="C_ID_Site" Type="Int32" Nullable="false" />
+          <Property Name="C_ID_Client" Type="Int32" Nullable="false" />
+          <Property Name="C_ID_Marque" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.idClient" FromRole="Materiel" ToRole="Client" />
+          <NavigationProperty Name="Interventions" Relationship="Self.idMateriel" FromRole="Materiel" ToRole="Intervention" />
+          <NavigationProperty Name="Marque" Relationship="Self.idMarque" FromRole="Materiel" ToRole="Marque" />
+          <NavigationProperty Name="Site" Relationship="Self.idSite" FromRole="Materiel" ToRole="Site" />
+          <NavigationProperty Name="typeMateriel" Relationship="Self.idType" FromRole="Materiel" ToRole="typeMateriel" />
+        </EntityType>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="idSite" />
+          </Key>
+          <Property Name="idSite" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomSite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="departementSite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPSite" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adresseSite" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Materiels" Relationship="Self.idSite" FromRole="Site" ToRole="Materiel" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="typeMateriel">
+          <Key>
+            <PropertyRef Name="idType" />
+          </Key>
+          <Property Name="idType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Materiels" Relationship="Self.idType" FromRole="typeMateriel" ToRole="Materiel" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="loginUser" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="passwordUser" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="idClient">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="idClient" />
+            </Principal>
+            <Dependent Role="Materiel">
+              <PropertyRef Name="C_ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idMateriel">
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="1" />
+          <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materiel">
+              <PropertyRef Name="idMat" />
+            </Principal>
+            <Dependent Role="Intervention">
+              <PropertyRef Name="C_idMat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idMarque">
+          <End Role="Marque" Type="Self.Marque" Multiplicity="1" />
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marque">
+              <PropertyRef Name="idMrq" />
+            </Principal>
+            <Dependent Role="Materiel">
+              <PropertyRef Name="C_ID_Marque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idSite">
+          <End Role="Site" Type="Self.Site" Multiplicity="1" />
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="idSite" />
+            </Principal>
+            <Dependent Role="Materiel">
+              <PropertyRef Name="C_ID_Site" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idType">
+          <End Role="typeMateriel" Type="Self.typeMateriel" Multiplicity="1" />
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typeMateriel">
+              <PropertyRef Name="idType" />
+            </Principal>
+            <Dependent Role="Materiel">
+              <PropertyRef Name="C_ID_TypeMat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GMDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Interventions" EntityType="Self.Intervention" />
+          <EntitySet Name="Marques" EntityType="Self.Marque" />
+          <EntitySet Name="Materiels" EntityType="Self.Materiel" />
+          <EntitySet Name="Sites" EntityType="Self.Site" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="typeMateriels" EntityType="Self.typeMateriel" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="idClient" Association="Self.idClient">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Materiel" EntitySet="Materiels" />
+          </AssociationSet>
+          <AssociationSet Name="idMateriel" Association="Self.idMateriel">
+            <End Role="Materiel" EntitySet="Materiels" />
+            <End Role="Intervention" EntitySet="Interventions" />
+          </AssociationSet>
+          <AssociationSet Name="idMarque" Association="Self.idMarque">
+            <End Role="Marque" EntitySet="Marques" />
+            <End Role="Materiel" EntitySet="Materiels" />
+          </AssociationSet>
+          <AssociationSet Name="idSite" Association="Self.idSite">
+            <End Role="Site" EntitySet="Sites" />
+            <End Role="Materiel" EntitySet="Materiels" />
+          </AssociationSet>
+          <AssociationSet Name="idType" Association="Self.idType">
+            <End Role="typeMateriel" EntitySet="typeMateriels" />
+            <End Role="Materiel" EntitySet="Materiels" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GMatosDBModelStoreContainer" CdmEntityContainer="GMDBEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="GMatosDBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="idClient" ColumnName="idClient" />
+                <ScalarProperty Name="nomClient" ColumnName="nomClient" />
+                <ScalarProperty Name="mailClient" ColumnName="mailClient" />
+                <ScalarProperty Name="telClient" ColumnName="telClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Interventions">
+            <EntityTypeMapping TypeName="GMatosDBModel.Intervention">
+              <MappingFragment StoreEntitySet="Intervention">
+                <ScalarProperty Name="idInter" ColumnName="idInter" />
+                <ScalarProperty Name="datePlanifie" ColumnName="datePlanifie" />
+                <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+                <ScalarProperty Name="C_idMat" ColumnName="#idMat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marques">
+            <EntityTypeMapping TypeName="GMatosDBModel.Marque">
+              <MappingFragment StoreEntitySet="Marque">
+                <ScalarProperty Name="idMrq" ColumnName="idMrq" />
+                <ScalarProperty Name="nomMrq" ColumnName="nomMrq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materiels">
+            <EntityTypeMapping TypeName="GMatosDBModel.Materiel">
+              <MappingFragment StoreEntitySet="Materiel">
+                <ScalarProperty Name="idMat" ColumnName="idMat" />
+                <ScalarProperty Name="nomMat" ColumnName="nomMat" />
+                <ScalarProperty Name="nSerieMat" ColumnName="nSerieMat" />
+                <ScalarProperty Name="MTBFMat" ColumnName="MTBFMat" />
+                <ScalarProperty Name="Date_Installation" ColumnName="Date_Installation" />
+                <ScalarProperty Name="C_ID_TypeMat" ColumnName="#ID_TypeMat" />
+                <ScalarProperty Name="C_ID_Site" ColumnName="#ID_Site" />
+                <ScalarProperty Name="C_ID_Client" ColumnName="#ID_Client" />
+                <ScalarProperty Name="C_ID_Marque" ColumnName="#ID_Marque" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sites">
+            <EntityTypeMapping TypeName="GMatosDBModel.Site">
+              <MappingFragment StoreEntitySet="Site">
+                <ScalarProperty Name="idSite" ColumnName="idSite" />
+                <ScalarProperty Name="nomSite" ColumnName="nomSite" />
+                <ScalarProperty Name="departementSite" ColumnName="departementSite" />
+                <ScalarProperty Name="CPSite" ColumnName="CPSite" />
+                <ScalarProperty Name="adresseSite" ColumnName="adresseSite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="GMatosDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="typeMateriels">
+            <EntityTypeMapping TypeName="GMatosDBModel.typeMateriel">
+              <MappingFragment StoreEntitySet="typeMateriel">
+                <ScalarProperty Name="idType" ColumnName="idType" />
+                <ScalarProperty Name="nomType" ColumnName="nomType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="GMatosDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="loginUser" ColumnName="loginUser" />
+                <ScalarProperty Name="passwordUser" ColumnName="passwordUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

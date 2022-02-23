@@ -12,18 +12,12 @@ namespace GestionMatos
     using System;
     using System.Collections.Generic;
     
-    public partial class typeMateriel
+    public partial class sysdiagram
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public typeMateriel()
-        {
-            this.Materiels = new HashSet<Materiel>();
-        }
-    
-        public int idType { get; set; }
-        public string nomType { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Materiel> Materiels { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

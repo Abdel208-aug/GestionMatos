@@ -12,18 +12,29 @@ namespace GestionMatos
     using System;
     using System.Collections.Generic;
     
-    public partial class typeMateriel
+    public partial class Materiel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public typeMateriel()
+        public Materiel()
         {
-            this.Materiels = new HashSet<Materiel>();
+            this.Interventions = new HashSet<Intervention>();
         }
     
-        public int idType { get; set; }
-        public string nomType { get; set; }
+        public int idMat { get; set; }
+        public string nomMat { get; set; }
+        public string nSerieMat { get; set; }
+        public Nullable<int> MTBFMat { get; set; }
+        public Nullable<System.DateTime> Date_Installation { get; set; }
+        public int C_ID_TypeMat { get; set; }
+        public int C_ID_Site { get; set; }
+        public int C_ID_Client { get; set; }
+        public int C_ID_Marque { get; set; }
     
+        public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Materiel> Materiels { get; set; }
+        public virtual ICollection<Intervention> Interventions { get; set; }
+        public virtual Marque Marque { get; set; }
+        public virtual Site Site { get; set; }
+        public virtual typeMateriel typeMateriel { get; set; }
     }
 }

@@ -119,6 +119,7 @@ namespace GestionMatos
             this.button1.TabIndex = 8;
             this.button1.Text = "Ajouter";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -128,6 +129,7 @@ namespace GestionMatos
             this.button2.TabIndex = 9;
             this.button2.Text = "Modifier";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -137,6 +139,7 @@ namespace GestionMatos
             this.button3.TabIndex = 10;
             this.button3.Text = "Supprimer";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // dataGridView1
             // 
@@ -151,6 +154,7 @@ namespace GestionMatos
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(485, 156);
             this.dataGridView1.TabIndex = 11;
+            this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             // 
             // panel1
             // 
@@ -182,6 +186,7 @@ namespace GestionMatos
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Clients";
             this.Text = "Clients";
+            this.Load += new System.EventHandler(this.Clients_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

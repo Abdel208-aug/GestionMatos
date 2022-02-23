@@ -12,16 +12,18 @@ namespace GestionMatos
     using System;
     using System.Collections.Generic;
     
-    public partial class typeMateriel
+    public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public typeMateriel()
+        public Client()
         {
             this.Materiels = new HashSet<Materiel>();
         }
     
-        public int idType { get; set; }
-        public string nomType { get; set; }
+        public int idClient { get; set; }
+        public string nomClient { get; set; }
+        public string mailClient { get; set; }
+        public string telClient { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Materiel> Materiels { get; set; }
