@@ -45,7 +45,7 @@ namespace GestionMatos
                                 "CPSite 'Code Postale',"+
                                 "departementSite 'departement site' "+
                                 "from Materiel m "+
-                            "join typeMateriel tm on m.#ID_TypeMat=tm.idType "+
+                            "join typeMateriel tm on m.#ID_TypeMat=tm.idType "+ 
                             "join Marque mrq on m.#ID_Marque=mrq.idMrq "+
                             "join Client c on m.#ID_Client=c.idClient "+
                             "join [dbo].[Site] s on m.#ID_Site=s.idSite;";
@@ -121,7 +121,6 @@ namespace GestionMatos
         {
             if (e.RowIndex < 0)
                 return;
-
             string nSerie = dataGridView1.Rows[e.RowIndex].Cells["N° Serie"].Value.ToString();
             string query = $"select * from Materiel where nSerieMat='{nSerie}';";
 

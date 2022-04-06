@@ -11,7 +11,8 @@ namespace GestionMatos
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,8 +25,9 @@ namespace GestionMatos
         public string nomClient { get; set; }
         public string mailClient { get; set; }
         public string telClient { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [NotMapped]
         public virtual ICollection<Materiel> Materiels { get; set; }
     }
 }

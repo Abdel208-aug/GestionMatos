@@ -15,6 +15,15 @@ namespace GestionMatos
         Clients clients = new Clients();
         Materiels materiels = new Materiels();
         Sites sites = new Sites();
+        Marques marque = new Marques();
+
+        void CloseChildrens()
+        {
+            foreach (var it in MdiChildren)
+            {
+                it.Dispose();
+            }
+        }
         public GestionMatos()
         {
             InitializeComponent();
@@ -25,8 +34,7 @@ namespace GestionMatos
         }
         private void gestionClientsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            materiels.Dispose();
-            sites.Dispose();
+            CloseChildrens();
             clients = new Clients();
             clients.MdiParent = this;
             clients.Dock = DockStyle.Fill;
@@ -35,9 +43,8 @@ namespace GestionMatos
 
         private void gestionMatérielToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            sites.Dispose();
-            clients.Dispose();
-            materiels= new Materiels();
+            CloseChildrens();
+            materiels = new Materiels();
             materiels.MdiParent = this;
             materiels.Dock = DockStyle.Fill;
             materiels.Show();
@@ -45,12 +52,19 @@ namespace GestionMatos
 
         private void sitesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            clients.Dispose();
-            materiels.Dispose();
+            CloseChildrens();
             sites = new Sites();
             sites.MdiParent = this;
             sites.Dock = DockStyle.Fill;
             sites.Show();
+        }
+
+        private void marquesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            marque = new Marques();
+            marque.MdiParent = this;
+            marque.Dock = DockStyle.Fill;
+            marque.Show();
         }
     }
 }

@@ -33,6 +33,7 @@ namespace GestionMatos
             this.gestionMatérielToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionClientsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.sitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.marquesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,7 +42,8 @@ namespace GestionMatos
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gestionMatérielToolStripMenuItem,
             this.gestionClientsToolStripMenuItem1,
-            this.sitesToolStripMenuItem});
+            this.sitesToolStripMenuItem,
+            this.marquesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -69,6 +71,13 @@ namespace GestionMatos
             this.sitesToolStripMenuItem.Text = "Sites";
             this.sitesToolStripMenuItem.Click += new System.EventHandler(this.sitesToolStripMenuItem_Click);
             // 
+            // marquesToolStripMenuItem
+            // 
+            this.marquesToolStripMenuItem.Name = "marquesToolStripMenuItem";
+            this.marquesToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.marquesToolStripMenuItem.Text = "Marques";
+            this.marquesToolStripMenuItem.Click += new System.EventHandler(this.marquesToolStripMenuItem_Click);
+            // 
             // GestionMatos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -94,5 +103,6 @@ namespace GestionMatos
         private System.Windows.Forms.ToolStripMenuItem gestionClientsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem gestionMatérielToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sitesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem marquesToolStripMenuItem;
     }
 }

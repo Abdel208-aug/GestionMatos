@@ -79,6 +79,11 @@
     <Compile Include="GestionMatos.Designer.cs">
       <DependentUpon>GestionMatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="GestionMatosDBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestionMatosDBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Intervention.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -167,6 +172,17 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="GestionMatosDBDataSet.xsc">
+      <DependentUpon>GestionMatosDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="GestionMatosDBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GestionMatosDBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GestionMatosDBDataSet.xss">
+      <DependentUpon>GestionMatosDBDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </None>
