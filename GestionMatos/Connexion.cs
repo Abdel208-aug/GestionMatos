@@ -12,14 +12,27 @@ namespace GestionMatos
 {
     public partial class Connexion : Form
     {
+        
         public Connexion()
         {
             InitializeComponent();
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
+            GestionMatos gestion = new GestionMatos();
+            this.Hide();
+            gestion.Show();
+        }
 
+        private void Connexion_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Connexion_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

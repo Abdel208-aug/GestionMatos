@@ -16,7 +16,7 @@ namespace GestionMatos
         {
             InitializeComponent();
         }
-        GMDBEntities db = new GMDBEntities();
+        GMDB db = new GMDB();
 
         private void Sites_Load(object sender, EventArgs e)
         {

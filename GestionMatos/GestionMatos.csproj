@@ -79,13 +79,14 @@
     <Compile Include="GestionMatos.Designer.cs">
       <DependentUpon>GestionMatos.cs</DependentUpon>
     </Compile>
-    <Compile Include="GestionMatosDBDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GestionMatosDBDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Intervention.cs">
       <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InterventionsFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InterventionsFrm.Designer.cs">
+      <DependentUpon>InterventionsFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Marque.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -131,6 +132,12 @@
     <Compile Include="Sites.Designer.cs">
       <DependentUpon>Sites.cs</DependentUpon>
     </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="SqlConn.cs" />
     <Compile Include="sysdiagram.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -150,6 +157,9 @@
     <EmbeddedResource Include="GestionMatos.resx">
       <DependentUpon>GestionMatos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InterventionsFrm.resx">
+      <DependentUpon>InterventionsFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Marques.resx">
       <DependentUpon>Marques.cs</DependentUpon>
     </EmbeddedResource>
@@ -164,6 +174,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Sites.resx">
       <DependentUpon>Sites.cs</DependentUpon>
@@ -172,17 +183,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="GestionMatosDBDataSet.xsc">
-      <DependentUpon>GestionMatosDBDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="GestionMatosDBDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>GestionMatosDBDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="GestionMatosDBDataSet.xss">
-      <DependentUpon>GestionMatosDBDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </None>
@@ -202,6 +202,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gm-logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model.Context.tt">

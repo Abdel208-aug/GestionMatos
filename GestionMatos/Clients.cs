@@ -12,7 +12,7 @@ namespace GestionMatos
 {
     public partial class Clients : Form
     {
-        GMDBEntities db = new GMDBEntities();
+        GMDB db = new GMDB();
         public Clients()
         {
             InitializeComponent();

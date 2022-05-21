@@ -10,18 +10,10 @@
 namespace GestionMatos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Intervention
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int idInter { get; set; }
-        public System.DateTime datePlanifie { get; set; }
-        public string Commentaire { get; set; }
-        public Nullable<int> C_idMat { get; set; }
-        public Nullable<int> C_idUser { get; set; }
-        public string etat { get; set; }
-    
-        public virtual Materiel Materiel { get; set; }
-        public virtual User User { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

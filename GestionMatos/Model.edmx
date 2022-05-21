@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GMatosDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="GestionMatosDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="idClient" />
@@ -21,7 +21,9 @@
           <Property Name="idInter" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="datePlanifie" Type="date" Nullable="false" />
           <Property Name="Commentaire" Type="varchar" MaxLength="50" />
-          <Property Name="#idMat" Type="int" Nullable="false" />
+          <Property Name="#idMat" Type="int" />
+          <Property Name="#idUser" Type="int" />
+          <Property Name="etat" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Marque">
           <Key>
@@ -39,10 +41,10 @@
           <Property Name="nSerieMat" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="MTBFMat" Type="int" />
           <Property Name="Date_Installation" Type="datetime" />
-          <Property Name="#ID_TypeMat" Type="int" Nullable="false" />
-          <Property Name="#ID_Site" Type="int" Nullable="false" />
-          <Property Name="#ID_Client" Type="int" Nullable="false" />
-          <Property Name="#ID_Marque" Type="int" Nullable="false" />
+          <Property Name="#ID_TypeMat" Type="int" />
+          <Property Name="#ID_Site" Type="int" />
+          <Property Name="#ID_Client" Type="int" />
+          <Property Name="#ID_Marque" Type="int" />
         </EntityType>
         <EntityType Name="Site">
           <Key>
@@ -80,7 +82,7 @@
           <Property Name="passwordUser" Type="varchar" MaxLength="60" />
         </EntityType>
         <Association Name="idClient">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -92,7 +94,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idMarque">
-          <End Role="Marque" Type="Self.Marque" Multiplicity="1" />
+          <End Role="Marque" Type="Self.Marque" Multiplicity="0..1" />
           <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Marque">
@@ -104,19 +106,19 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idMateriel">
-          <End Role="Materiel" Type="Self.Materiel" Multiplicity="1" />
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="0..1" />
           <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Materiel">
               <PropertyRef Name="idMat" />
             </Principal>
             <Dependent Role="Intervention">
-              <PropertyRef Name="#idMat" />
+              <PropertyRef Name="#idUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="idSite">
-          <End Role="Site" Type="Self.Site" Multiplicity="1" />
+          <End Role="Site" Type="Self.Site" Multiplicity="0..1" />
           <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Site">
@@ -128,7 +130,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idType">
-          <End Role="typeMateriel" Type="Self.typeMateriel" Multiplicity="1" />
+          <End Role="typeMateriel" Type="Self.typeMateriel" Multiplicity="0..1" />
           <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="typeMateriel">
@@ -139,7 +141,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GMatosDBModelStoreContainer">
+        <Association Name="idUser">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Intervention">
+              <PropertyRef Name="#idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="GestionMatosDBModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Intervention" EntityType="Self.Intervention" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marque" EntityType="Self.Marque" Schema="dbo" store:Type="Tables" />
@@ -168,12 +213,16 @@
             <End Role="typeMateriel" EntitySet="typeMateriel" />
             <End Role="Materiel" EntitySet="Materiel" />
           </AssociationSet>
+          <AssociationSet Name="idUser" Association="Self.idUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="Intervention" EntitySet="Intervention" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="GMatosDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="GestionMatosDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="idClient" />
@@ -191,8 +240,11 @@
           <Property Name="idInter" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="datePlanifie" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Commentaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="C_idMat" Type="Int32" Nullable="false" />
+          <Property Name="C_idMat" Type="Int32" />
+          <Property Name="C_idUser" Type="Int32" />
+          <Property Name="etat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Materiel" Relationship="Self.idMateriel" FromRole="Intervention" ToRole="Materiel" />
+          <NavigationProperty Name="User" Relationship="Self.idUser" FromRole="Intervention" ToRole="User" />
         </EntityType>
         <EntityType Name="Marque">
           <Key>
@@ -211,10 +263,10 @@
           <Property Name="nSerieMat" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MTBFMat" Type="Int32" />
           <Property Name="Date_Installation" Type="DateTime" Precision="3" />
-          <Property Name="C_ID_TypeMat" Type="Int32" Nullable="false" />
-          <Property Name="C_ID_Site" Type="Int32" Nullable="false" />
-          <Property Name="C_ID_Client" Type="Int32" Nullable="false" />
-          <Property Name="C_ID_Marque" Type="Int32" Nullable="false" />
+          <Property Name="C_ID_TypeMat" Type="Int32" />
+          <Property Name="C_ID_Site" Type="Int32" />
+          <Property Name="C_ID_Client" Type="Int32" />
+          <Property Name="C_ID_Marque" Type="Int32" />
           <NavigationProperty Name="Client" Relationship="Self.idClient" FromRole="Materiel" ToRole="Client" />
           <NavigationProperty Name="Interventions" Relationship="Self.idMateriel" FromRole="Materiel" ToRole="Intervention" />
           <NavigationProperty Name="Marque" Relationship="Self.idMarque" FromRole="Materiel" ToRole="Marque" />
@@ -257,9 +309,10 @@
           <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="loginUser" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="passwordUser" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Interventions" Relationship="Self.idUser" FromRole="User" ToRole="Intervention" />
         </EntityType>
         <Association Name="idClient">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
           <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -271,19 +324,31 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idMateriel">
-          <End Role="Materiel" Type="Self.Materiel" Multiplicity="1" />
+          <End Role="Materiel" Type="Self.Materiel" Multiplicity="0..1" />
           <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Materiel">
               <PropertyRef Name="idMat" />
             </Principal>
             <Dependent Role="Intervention">
-              <PropertyRef Name="C_idMat" />
+              <PropertyRef Name="C_idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idUser">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Intervention" Type="Self.Intervention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="Intervention">
+              <PropertyRef Name="C_idUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="idMarque">
-          <End Role="Marque" Type="Self.Marque" Multiplicity="1" />
+          <End Role="Marque" Type="Self.Marque" Multiplicity="0..1" />
           <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Marque">
@@ -295,7 +360,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idSite">
-          <End Role="Site" Type="Self.Site" Multiplicity="1" />
+          <End Role="Site" Type="Self.Site" Multiplicity="0..1" />
           <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Site">
@@ -307,7 +372,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idType">
-          <End Role="typeMateriel" Type="Self.typeMateriel" Multiplicity="1" />
+          <End Role="typeMateriel" Type="Self.typeMateriel" Multiplicity="0..1" />
           <End Role="Materiel" Type="Self.Materiel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="typeMateriel">
@@ -318,7 +383,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GMDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="GMDB" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Interventions" EntityType="Self.Intervention" />
           <EntitySet Name="Marques" EntityType="Self.Marque" />
@@ -335,6 +400,10 @@
             <End Role="Materiel" EntitySet="Materiels" />
             <End Role="Intervention" EntitySet="Interventions" />
           </AssociationSet>
+          <AssociationSet Name="idUser" Association="Self.idUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Intervention" EntitySet="Interventions" />
+          </AssociationSet>
           <AssociationSet Name="idMarque" Association="Self.idMarque">
             <End Role="Marque" EntitySet="Marques" />
             <End Role="Materiel" EntitySet="Materiels" />
@@ -347,15 +416,56 @@
             <End Role="typeMateriel" EntitySet="typeMateriels" />
             <End Role="Materiel" EntitySet="Materiels" />
           </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(GestionMatosDBModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(GestionMatosDBModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GMatosDBModelStoreContainer" CdmEntityContainer="GMDBEntities">
+        <EntityContainerMapping StorageEntityContainer="GestionMatosDBModelStoreContainer" CdmEntityContainer="GMDB">
           <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="GMatosDBModel.Client">
+            <EntityTypeMapping TypeName="GestionMatosDBModel.Client">
               <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="idClient" ColumnName="idClient" />
                 <ScalarProperty Name="nomClient" ColumnName="nomClient" />
@@ -365,17 +475,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Interventions">
-            <EntityTypeMapping TypeName="GMatosDBModel.Intervention">
+            <EntityTypeMapping TypeName="GestionMatosDBModel.Intervention">
               <MappingFragment StoreEntitySet="Intervention">
                 <ScalarProperty Name="idInter" ColumnName="idInter" />
                 <ScalarProperty Name="datePlanifie" ColumnName="datePlanifie" />
                 <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
                 <ScalarProperty Name="C_idMat" ColumnName="#idMat" />
+                <ScalarProperty Name="C_idUser" ColumnName="#idUser" />
+                <ScalarProperty Name="etat" ColumnName="etat" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Marques">
-            <EntityTypeMapping TypeName="GMatosDBModel.Marque">
+            <EntityTypeMapping TypeName="GestionMatosDBModel.Marque">
               <MappingFragment StoreEntitySet="Marque">
                 <ScalarProperty Name="idMrq" ColumnName="idMrq" />
                 <ScalarProperty Name="nomMrq" ColumnName="nomMrq" />
@@ -383,7 +495,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Materiels">
-            <EntityTypeMapping TypeName="GMatosDBModel.Materiel">
+            <EntityTypeMapping TypeName="GestionMatosDBModel.Materiel">
               <MappingFragment StoreEntitySet="Materiel">
                 <ScalarProperty Name="idMat" ColumnName="idMat" />
                 <ScalarProperty Name="nomMat" ColumnName="nomMat" />
@@ -398,7 +510,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sites">
-            <EntityTypeMapping TypeName="GMatosDBModel.Site">
+            <EntityTypeMapping TypeName="GestionMatosDBModel.Site">
               <MappingFragment StoreEntitySet="Site">
                 <ScalarProperty Name="idSite" ColumnName="idSite" />
                 <ScalarProperty Name="nomSite" ColumnName="nomSite" />
@@ -409,7 +521,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="GMatosDBModel.sysdiagram">
+            <EntityTypeMapping TypeName="GestionMatosDBModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -420,7 +532,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="typeMateriels">
-            <EntityTypeMapping TypeName="GMatosDBModel.typeMateriel">
+            <EntityTypeMapping TypeName="GestionMatosDBModel.typeMateriel">
               <MappingFragment StoreEntitySet="typeMateriel">
                 <ScalarProperty Name="idType" ColumnName="idType" />
                 <ScalarProperty Name="nomType" ColumnName="nomType" />
@@ -428,7 +540,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="GMatosDBModel.User">
+            <EntityTypeMapping TypeName="GestionMatosDBModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="loginUser" ColumnName="loginUser" />
@@ -436,6 +548,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="GestionMatosDBModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="GestionMatosDBModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="GestionMatosDBModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="GestionMatosDBModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GestionMatosDBModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="GestionMatosDBModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GestionMatosDBModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="GestionMatosDBModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="GestionMatosDBModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

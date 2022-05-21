@@ -12,10 +12,12 @@ namespace GestionMatos
 {
     public partial class GestionMatos : Form
     {
+        InterventionsFrm interventions = new InterventionsFrm();
         Clients clients = new Clients();
         Materiels materiels = new Materiels();
         Sites sites = new Sites();
         Marques marque = new Marques();
+        Connexion connexion = new Connexion();
 
         void CloseChildrens()
         {
@@ -30,7 +32,10 @@ namespace GestionMatos
         }
         private void GestionMatoscs_Load(object sender, EventArgs e)
         {
-
+            interventions = new InterventionsFrm();
+            interventions.MdiParent = this;
+            interventions.Dock = DockStyle.Fill;
+            interventions.Show();
         }
         private void gestionClientsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -61,10 +66,31 @@ namespace GestionMatos
 
         private void marquesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            CloseChildrens();
             marque = new Marques();
             marque.MdiParent = this;
             marque.Dock = DockStyle.Fill;
             marque.Show();
+        }
+
+        private void interventionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CloseChildrens();
+            interventions = new InterventionsFrm();
+            interventions.MdiParent = this;
+            interventions.Dock = DockStyle.Fill;
+            interventions.Show();
+        }
+
+        private void GestionMatos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void déconnexionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            connexion.Show();
+            Dispose();
         }
     }
 }

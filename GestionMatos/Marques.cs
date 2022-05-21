@@ -12,7 +12,7 @@ namespace GestionMatos
 {
     public partial class Marques : Form
     {
-        GMDBEntities db = new GMDBEntities();
+        GMDB db = new GMDB();
         int id=-1;
         bool CheckClicked(int id)
         {
@@ -72,6 +72,14 @@ namespace GestionMatos
             }
             if (MessageBox.Show("Voulez-vous vraiment continuer la suppression !","Suppression marque",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)==DialogResult.Yes)
             {
+                var marq = db.Marques.Include("Materiels").Where(m => m.idMrq == id).FirstOrDefault();
+                var mat = marq.Materiels.ToList();
+                foreach (var item in mat)
+                {
+                    item.C_ID_Marque = 1;
+                }
+                db.SaveChanges();
+
                 Marque marque = new Marque();
                 marque = db.Marques.Find(id);
                 db.Marques.Remove(marque);

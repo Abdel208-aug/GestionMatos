@@ -4,20 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="99455eb3a90640ca91220320631346ba" Name="Diagram1">
-        <EntityTypeShape EntityType="GMatosDBModel.Client" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="GMatosDBModel.Intervention" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="GMatosDBModel.Marque" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="GMatosDBModel.Materiel" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="GMatosDBModel.Site" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="GMatosDBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GMatosDBModel.typeMateriel" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="GMatosDBModel.User" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="GMatosDBModel.idClient" ManuallyRouted="false" />
-        <AssociationConnector Association="GMatosDBModel.idMateriel" ManuallyRouted="false" />
-        <AssociationConnector Association="GMatosDBModel.idMarque" ManuallyRouted="false" />
-        <AssociationConnector Association="GMatosDBModel.idSite" ManuallyRouted="false" />
-        <AssociationConnector Association="GMatosDBModel.idType" ManuallyRouted="false" />
+      <Diagram DiagramId="fa8a2571f2cf499da6ecb0e3b969b368" Name="Diagram1">
+        <EntityTypeShape EntityType="GestionMatosDBModel.Client" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionMatosDBModel.Intervention" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionMatosDBModel.Marque" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionMatosDBModel.Materiel" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionMatosDBModel.Site" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionMatosDBModel.sysdiagram" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionMatosDBModel.typeMateriel" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionMatosDBModel.User" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="GestionMatosDBModel.idClient" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionMatosDBModel.idMateriel" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionMatosDBModel.idUser" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionMatosDBModel.idMarque" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionMatosDBModel.idSite" ManuallyRouted="false" />
+        <AssociationConnector Association="GestionMatosDBModel.idType" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

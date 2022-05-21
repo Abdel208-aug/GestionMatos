@@ -25,10 +25,10 @@ namespace GestionMatos
         public string nSerieMat { get; set; }
         public Nullable<int> MTBFMat { get; set; }
         public Nullable<System.DateTime> Date_Installation { get; set; }
-        public int C_ID_TypeMat { get; set; }
-        public int C_ID_Site { get; set; }
-        public int C_ID_Client { get; set; }
-        public int C_ID_Marque { get; set; }
+        public Nullable<int> C_ID_TypeMat { get; set; }
+        public Nullable<int> C_ID_Site { get; set; }
+        public Nullable<int> C_ID_Client { get; set; }
+        public Nullable<int> C_ID_Marque { get; set; }
     
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
