@@ -32,14 +32,14 @@ namespace GestionMatos
 
         private void Marques_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = db.Marques.ToList();
+            dataGridView1.DataSource = db.Marques.Select(mq=>new { mq.idMrq, mq.nomMrq}).ToList();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             db.Marques.Add(new Marque() { nomMrq = textBox1.Text });
             db.SaveChanges();
-            dataGridView1.DataSource = db.Marques.ToList();
+            this.Marques_Load(sender, e);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -56,7 +56,7 @@ namespace GestionMatos
                 marque.nomMrq = textBox1.Text;
                 db.SaveChanges();
                 id = -1;
-                dataGridView1.DataSource = db.Marques.ToList();
+                this.Marques_Load(sender, e);
             }
             else
                 errorProvider1.SetError(textBox1, "Chanmp vide !");
@@ -70,23 +70,27 @@ namespace GestionMatos
                 MessageBox.Show("Aucun maeriel est selectionné dans la liste !","Suppression marque",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 return;
             }
-            if (MessageBox.Show("Voulez-vous vraiment continuer la suppression !","Suppression marque",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)==DialogResult.Yes)
+            if (MessageBox.Show("La suppression de cette marque va entraîner la supprission de toute objet relatif!","Suppression marque",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)==DialogResult.Yes)
             {
-                var marq = db.Marques.Include("Materiels").Where(m => m.idMrq == id).FirstOrDefault();
-                var mat = marq.Materiels.ToList();
-                foreach (var item in mat)
+                if (MessageBox.Show("Voulez-vous vraiment continuer la suppression !","Suppression marque",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question)==DialogResult.Yes)
                 {
-                    item.C_ID_Marque = 1;
-                }
-                db.SaveChanges();
+                    var marq = db.Marques.Include("Materiels").Where(m => m.idMrq == id).FirstOrDefault();
+                    var mat = marq.Materiels.ToList();
+                    foreach (var item in mat)
+                    {
+                        item.C_ID_Marque = 1;
+                    }
+                    db.SaveChanges();
 
-                Marque marque = new Marque();
-                marque = db.Marques.Find(id);
-                db.Marques.Remove(marque);
-                db.SaveChanges();
-                id = -1;
-                dataGridView1.DataSource = db.Marques.ToList();
+                    Marque marque = new Marque();
+                    marque = db.Marques.Find(id);
+                    db.Marques.Remove(marque);
+                    db.SaveChanges();
+                    id = -1;
+                    this.Marques_Load(sender, e);
+                }
             }
+
         }
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)

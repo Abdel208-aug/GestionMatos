@@ -20,7 +20,7 @@ namespace GestionMatos
 
         private void Clients_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = db.Clients.ToList();
+            dataGridView1.DataSource = db.Clients.Select(c=>new { c.idClient, c.nomClient, c.mailClient, c.telClient}).ToList();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace GestionMatos
             telClient=textBox4.Text
             });
             db.SaveChanges();
-            dataGridView1.DataSource = db.Clients.ToList();
+            this.Clients_Load(sender, e);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace GestionMatos
             c.mailClient = textBox3.Text;
             c.telClient = textBox4.Text;
             db.SaveChanges();
-            dataGridView1.DataSource = db.Clients.ToList();
+            this.Clients_Load(sender, e);
         }
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -73,7 +73,7 @@ namespace GestionMatos
             Client c = db.Clients.Find(idC);
             db.Clients.Remove(c);
             db.SaveChanges();
-            dataGridView1.DataSource = db.Clients.ToList();
+            this.Clients_Load(sender, e);
         }
     }
 }

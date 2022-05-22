@@ -16,7 +16,7 @@ namespace GestionMatos
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Connexion());
+            Application.Run(new GestionMatos());
         }
     }
 }

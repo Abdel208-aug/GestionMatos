@@ -12,6 +12,7 @@ namespace GestionMatos
 {
     public partial class GestionMatos : Form
     {
+        public int idUser { get; set; }
         InterventionsFrm interventions = new InterventionsFrm();
         Clients clients = new Clients();
         Materiels materiels = new Materiels();
@@ -32,10 +33,7 @@ namespace GestionMatos
         }
         private void GestionMatoscs_Load(object sender, EventArgs e)
         {
-            interventions = new InterventionsFrm();
-            interventions.MdiParent = this;
-            interventions.Dock = DockStyle.Fill;
-            interventions.Show();
+            interventionsToolStripMenuItem_Click(sender, e);
         }
         private void gestionClientsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -79,6 +77,7 @@ namespace GestionMatos
             interventions = new InterventionsFrm();
             interventions.MdiParent = this;
             interventions.Dock = DockStyle.Fill;
+            interventions.idUser=idUser;
             interventions.Show();
         }
 

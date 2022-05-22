@@ -76,6 +76,7 @@ namespace GestionMatos
             this.textBox2.Size = new System.Drawing.Size(160, 20);
             this.textBox2.TabIndex = 2;
             this.textBox2.UseSystemPasswordChar = true;
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
             // 
             // button1
             // 

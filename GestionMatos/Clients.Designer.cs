@@ -113,7 +113,7 @@ namespace GestionMatos
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(243, 20);
+            this.button1.Location = new System.Drawing.Point(229, 24);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 8;
@@ -123,7 +123,7 @@ namespace GestionMatos
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(243, 58);
+            this.button2.Location = new System.Drawing.Point(229, 62);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 9;
@@ -133,7 +133,7 @@ namespace GestionMatos
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(243, 94);
+            this.button3.Location = new System.Drawing.Point(229, 98);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 10;
@@ -148,10 +148,10 @@ namespace GestionMatos
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 174);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 222);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(509, 156);
+            this.dataGridView1.Size = new System.Drawing.Size(820, 261);
             this.dataGridView1.TabIndex = 11;
             this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             // 
@@ -159,6 +159,7 @@ namespace GestionMatos
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.button3);
@@ -170,16 +171,16 @@ namespace GestionMatos
             this.panel1.Controls.Add(this.textBox4);
             this.panel1.Controls.Add(this.textBox3);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Location = new System.Drawing.Point(47, 11);
+            this.panel1.Location = new System.Drawing.Point(244, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(354, 142);
+            this.panel1.Size = new System.Drawing.Size(346, 142);
             this.panel1.TabIndex = 12;
             // 
             // Clients
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(509, 330);
+            this.ClientSize = new System.Drawing.Size(820, 483);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

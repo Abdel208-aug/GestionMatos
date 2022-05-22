@@ -57,13 +57,13 @@ namespace GestionMatos
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(338, 343);
+            this.dataGridView1.Size = new System.Drawing.Size(338, 493);
             this.dataGridView1.TabIndex = 22;
             this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(356, 76);
+            this.button3.Location = new System.Drawing.Point(356, 90);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 21;
@@ -73,7 +73,7 @@ namespace GestionMatos
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(356, 40);
+            this.button2.Location = new System.Drawing.Point(356, 54);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 20;
@@ -99,7 +99,7 @@ namespace GestionMatos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 343);
+            this.ClientSize = new System.Drawing.Size(820, 493);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button3);

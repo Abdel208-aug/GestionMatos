@@ -26,7 +26,7 @@ namespace GestionMatos
         {
             InitializeComponent();
         }
-        //Fonction pour remplir ou rafraichir la datagridview
+
         void FillGrid()
         {
             dt.Clear();
@@ -58,11 +58,9 @@ namespace GestionMatos
             dataGridView1.Refresh();
         }
         
-        //Fonction pour remplir les comboboxs
         void FillCombo()
         {
             dtc.Clear();
-            //remplir Combobox de type materiel
             string queryC = "select * from typeMateriel;";
             command.CommandText = queryC;
             dtc.Load(command.ExecuteReader());
@@ -71,7 +69,6 @@ namespace GestionMatos
             comboType.DataSource = dtc;
 
             dtc = new DataTable();
-            //remplir Combobox de type Marque
             queryC = "select * from Marque;";
             command.CommandText = queryC;
             dtc.Load(command.ExecuteReader());
@@ -80,7 +77,6 @@ namespace GestionMatos
             comboMarque.DataSource = dtc;
 
             dtc = new DataTable();
-            //remplir Combobox de type Client
             queryC = "select * from Client;";
             command.CommandText = queryC;
             dtc.Load(command.ExecuteReader());
@@ -89,7 +85,6 @@ namespace GestionMatos
             comboClient.DataSource = dtc;
 
             dtc = new DataTable();
-            //remplir Combobox de type Site
             queryC = "select * from [dbo].[Site];";
             command.CommandText = queryC;
             dtc.Load(command.ExecuteReader());
@@ -211,5 +206,6 @@ namespace GestionMatos
             sql.disconnect();
 
         }
+
     }
 }

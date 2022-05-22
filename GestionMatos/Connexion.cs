@@ -52,6 +52,7 @@ namespace GestionMatos
                 else
                 {
                     GestionMatos gestion = new GestionMatos();
+                    gestion.idUser=user.idUser;
                     this.Hide();
                     gestion.Show();
                 }
@@ -60,12 +61,18 @@ namespace GestionMatos
 
         private void Connexion_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void Connexion_FormClosing(object sender, FormClosingEventArgs e)
         {
                 Application.Exit();
+        }
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue==(int)Keys.Enter)
+                button1_Click(sender, e);
+
         }
     }
 }

@@ -20,7 +20,7 @@ namespace GestionMatos
 
         private void Sites_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource=db.Sites.ToList();
+            dataGridView1.DataSource=db.Sites.Select(s=>new { s.idSite, s.nomSite, s.CPSite, s.departementSite, s.adresseSite}).ToList();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -32,7 +32,7 @@ namespace GestionMatos
                 adresseSite=textBox5.Text,
             });
             db.SaveChanges();
-            dataGridView1.DataSource = db.Sites.ToList();
+            this.Sites_Load(sender,e);
         }
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -63,7 +63,7 @@ namespace GestionMatos
             s.CPSite = textBox4.Text;
             s.adresseSite = textBox5.Text;
             db.SaveChanges();
-            dataGridView1.DataSource = db.Sites.ToList();
+            this.Sites_Load(sender, e);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -78,7 +78,7 @@ namespace GestionMatos
             Site s = db.Sites.Find(idS);
             db.Sites.Remove(s);
             db.SaveChanges();
-            dataGridView1.DataSource = db.Sites.ToList();
+            this.Sites_Load(sender, e);
         }
     }
 }
