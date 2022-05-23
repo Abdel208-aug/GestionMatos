@@ -41,20 +41,28 @@ namespace GestionMatos
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var modifInterv = db.Interventions.Find(idIntervention);
-            modifInterv.datePlanifie=dateTimePicker1.Value;
-            modifInterv.C_idMat=int.Parse(comboBox1.SelectedValue.ToString());
-            modifInterv.etat=comboBox2.SelectedValue.ToString();
-            modifInterv.Commentaire=textBox1.Text;
-            db.SaveChanges();
-            edited=true;
+            if (MessageBox.Show("Voulez-vous vaiment modifier cette intervention ?","Modification d'intervention",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+            {
+                var modifInterv = db.Interventions.Find(idIntervention);
+                modifInterv.datePlanifie=dateTimePicker1.Value;
+                modifInterv.C_idMat=int.Parse(comboBox1.SelectedValue.ToString());
+                modifInterv.etat=comboBox2.SelectedValue.ToString();
+                modifInterv.Commentaire=textBox1.Text;
+                db.SaveChanges();
+                edited=true;
+            }
+
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            var sprmInterv = db.Interventions.Find(idIntervention);
-            db.Interventions.Remove(sprmInterv);
-            db.SaveChanges();
-            edited=true;
+            if (MessageBox.Show("Voulez-vous vaiment supprimer cette intervention ?","Suppression d'intervention",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+            {
+                var sprmInterv = db.Interventions.Find(idIntervention);
+                db.Interventions.Remove(sprmInterv);
+                db.SaveChanges();
+                edited=true;
+            }
+
         }
 
         private void ModifIntervention_FormClosed(object sender, FormClosedEventArgs e)

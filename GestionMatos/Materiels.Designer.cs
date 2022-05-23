@@ -103,6 +103,7 @@ namespace GestionMatos
             // 
             // comboMarque
             // 
+            this.comboMarque.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMarque.FormattingEnabled = true;
             this.comboMarque.Location = new System.Drawing.Point(299, 149);
             this.comboMarque.Name = "comboMarque";
@@ -141,6 +142,7 @@ namespace GestionMatos
             // 
             // comboClient
             // 
+            this.comboClient.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboClient.FormattingEnabled = true;
             this.comboClient.Location = new System.Drawing.Point(299, 107);
             this.comboClient.Name = "comboClient";
@@ -158,6 +160,7 @@ namespace GestionMatos
             // 
             // comboSite
             // 
+            this.comboSite.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboSite.FormattingEnabled = true;
             this.comboSite.Location = new System.Drawing.Point(299, 67);
             this.comboSite.Name = "comboSite";
@@ -175,6 +178,7 @@ namespace GestionMatos
             // 
             // comboType
             // 
+            this.comboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboType.FormattingEnabled = true;
             this.comboType.Location = new System.Drawing.Point(299, 26);
             this.comboType.Name = "comboType";
@@ -241,6 +245,7 @@ namespace GestionMatos
             this.btnSupprimer.TabIndex = 38;
             this.btnSupprimer.Text = "Supprimer";
             this.btnSupprimer.UseVisualStyleBackColor = true;
+            this.btnSupprimer.Click += new System.EventHandler(this.btnSupprimer_Click_1);
             // 
             // btnModifier
             // 
@@ -250,6 +255,7 @@ namespace GestionMatos
             this.btnModifier.TabIndex = 37;
             this.btnModifier.Text = "Modifier";
             this.btnModifier.UseVisualStyleBackColor = true;
+            this.btnModifier.Click += new System.EventHandler(this.btnModifier_Click_1);
             // 
             // btnAjouter
             // 
@@ -260,6 +266,7 @@ namespace GestionMatos
             this.btnAjouter.TabIndex = 36;
             this.btnAjouter.Text = "Ajouter";
             this.btnAjouter.UseVisualStyleBackColor = true;
+            this.btnAjouter.Click += new System.EventHandler(this.btnAjouter_Click_1);
             // 
             // Materiels
             // 

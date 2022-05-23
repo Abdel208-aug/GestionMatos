@@ -136,14 +136,18 @@ namespace GestionMatos
             reader.Close();
         }
 
-        private void btnAjouter_Click(object sender, EventArgs e)
+        private void Materiels_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            sql.disconnect();
+
+        }
+
+        private void btnSupprimer_Click_1(object sender, EventArgs e)
         {
             if (!CheckNSerie())
                 return;
-            string query = $"insert into materiel " +
-                $"values ('{textBox1.Text}','{textBox2.Text}'," +
-                $"{textBox3.Text},'{dateTimePicker1.Value}',{comboType.SelectedValue}," +
-                $"{comboSite.SelectedValue},{comboClient.SelectedValue},{comboMarque.SelectedValue})";
+            string query = $"delete from materiel " +
+                $"where nSerieMat='{textBox2.Text}'";
             command.CommandText = query;
             command.Connection = sql.Conn;
             try
@@ -156,7 +160,8 @@ namespace GestionMatos
                 MessageBox.Show(ex.Message);
             }
         }
-        private void btnModifier_Click(object sender, EventArgs e)
+
+        private void btnModifier_Click_1(object sender, EventArgs e)
         {
             if (!CheckNSerie())
                 return;
@@ -183,12 +188,14 @@ namespace GestionMatos
             }
         }
 
-        private void btnSupprimer_Click(object sender, EventArgs e)
+        private void btnAjouter_Click_1(object sender, EventArgs e)
         {
             if (!CheckNSerie())
                 return;
-            string query = $"delete from materiel " +
-                $"where nSerieMat='{textBox2.Text}'";
+            string query = $"insert into materiel " +
+                $"values ('{textBox1.Text}','{textBox2.Text}'," +
+                $"{textBox3.Text},'{dateTimePicker1.Value}',{comboType.SelectedValue}," +
+                $"{comboSite.SelectedValue},{comboClient.SelectedValue},{comboMarque.SelectedValue})";
             command.CommandText = query;
             command.Connection = sql.Conn;
             try
@@ -201,11 +208,5 @@ namespace GestionMatos
                 MessageBox.Show(ex.Message);
             }
         }
-        private void Materiels_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            sql.disconnect();
-
-        }
-
     }
 }
